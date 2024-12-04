@@ -4,18 +4,23 @@
   "description": "daily-dose-project",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "backend-test": "nyc --nycrc-path .nycrc-backend mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.3",
-    "express": "^4.21.1", 
-    "fs": "^0.0.1-security" 
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "mocha": "^11.0.1",
+    "nyc": "^17.1.0"
   },
   "devDependencies": {
-    "jest": "^your_version",
-    "supertest": "^your_version"
+    "jest": "^29.7.0",
+    "supertest": "^6.0.0"
   }
 }
