@@ -2,6 +2,7 @@ const { Notes } = require('../models/notes.js');
 const { readJSON } = require('./NotesUtils.js');
 const fs = require('fs').promises; //Mocking File System Operations (fs)
 
+
 // Edit notes
 async function editNotes(req, res) {
     try {
