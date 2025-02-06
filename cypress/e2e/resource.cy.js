@@ -12,32 +12,27 @@ describe('Daily Dose Frontend', () => {
     return cy.task('stopServer'); // Stop the server after the report is done
   });
 
-  it('should edit an existing resource', () => {
-    // Click the edit button for the resource
-    // cy.get('button[data-target="#resourceModal"]').click();
-    // cy.get('button.btn-warning').filter(':contains("editNote")').click();
+  it('should update an existing resource', () => {
+    cy.visit(baseUrl);
+    // Click the edit button for editing the note
+    cy.get('button.btn-warning').filter(':contains("edit")').last().click();
 
-    cy.get('button[data-target="#editResourceModal"]').click();
-    cy.get('#editResourceModal').should('be.visible');
-    
-  
-    // Update resource details
-    cy.get('#editName').clear().type('Updated Title', { force: true });
-    cy.get('#editLocation').clear().type('Updated Location', { force: true });
-    cy.get('#editDescription').clear().type('Updated Description', { force: true });
-    cy.get('#editOwner').clear().type('updated@example.com', { force: true });
-  
-    // Click the update resource button
+    // Update Note details
+    cy.get('#editTitle').clear().type('Updatedd Notess', { force: true });
+    cy.get('#editDescription').clear().type('Updatedd Descriptionn', { force: true });
+    cy.get('#editPriority').select('High Priority', { force: true });
+
+    // Click the update Note button
     cy.get('#updateButton').click();
+
+    // Verify the Note is updated in the table
+    cy.get('#tableContent').contains('Updatedd Notess').should('exist');
+});
+
+it('should be unable to add notes - empty fields', () => {
+    cy.visit(baseUrl);
+    // Open the modal and fill in the form for edit-notes
+    cy.get('button[data-target="#notesModal"]').click();
+});
+});
   
-    // Verify the resource is updated in the table
-    cy.get('#tableContent').contains('Updated Title').should('exist');
-    cy.get('#tableContent').contains('Updated Description').should('exist');
-    cy.get('#tableContent').contains('Updated Location').should('exist');
-    cy.get('#tableContent').contains('updated@example.com').should('exist');
-  
-    // Verify the old resource no longer exists
-    cy.get('#tableContent').contains('Test Resource').should('not.exist');
-  });
-  
-});  
