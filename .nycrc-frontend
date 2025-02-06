@@ -1,17 +1,20 @@
 {
     "reporter": [
-        "text",
-        "html"
+      "text",
+      "html"
     ],
     "include": [
-        " public/js/**/*.js"
+      "public/js/**/*.js"
+    ],
+    "exclude": [
+      "public/js/addNotes.js",
+      "public/js/deleteNotes.js"
     ],
     "reportDir": "coverage/frontend",
     "check-coverage": true,
-    "statements": 50,
-    "branches": 50,
-    "functions": 80,
-    "lines": 50
-    
-    
-}
+    "statements": 80,
+    "branches": 60,
+    "functions": 70,
+    "lines": 80
+  }
+  

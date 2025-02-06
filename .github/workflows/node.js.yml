@@ -1,0 +1,45 @@
+name: Automatic Testing for Daily Dose Web App
+
+on:
+  push:
+    branches:
+      - main  # Workflow will be triggered whenever there is a push to the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js (ensure the correct version is used for your project)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Specify the Node.js version as per your requirement
+
+      # Step 3: Install dependencies (both backend and frontend)
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run backend tests (make sure "backend-test" is defined in your package.json)
+      - name: Run tests in "tests" folder (backend)
+        run: npm run backend-test
+
+      # Step 5: Instrument the frontend code (ensure public directory exists)
+      - name: Instrument the frontend code
+        run: cp -R public instrumented && npx nyc instrument public instrumented
+
+      # Step 6: Run frontend tests (make sure Cypress is set up in your project)
+      - name: Run the frontend test cases
+        run: rm -rf .nyc_output && npx nyc --nycrc-path .nycrc-frontend cypress run
+
+      # Optional: Upload test results as artifacts for debugging (in case of failure)
+      - name: Upload test results
+        if: failure()  # This step will only run if the tests fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: cypress/results  # Modify if you want to upload test logs or screenshots

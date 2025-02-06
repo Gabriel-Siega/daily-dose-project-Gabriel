@@ -126,7 +126,11 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,67 +193,75 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
-// //edit notes js //* gab/
-// Function to handle the edit note action
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Function to handle the edit note action
 function editNote(encodedNote) {
-    // Parse the encoded note data
-    const note = JSON.parse(decodeURIComponent(encodedNote));
+    try {
+        const note = JSON.parse(decodeURIComponent(encodedNote));
 &nbsp;
-    // Populate the edit modal with existing note data
+        // Populate the edit modal with existing note data
+        populateEditModal(note);
+&nbsp;
+        // Set the update button's onclick event to update this specific note
+        document.getElementById("updateButton").onclick = () =&gt; updateNote(note.id);
+&nbsp;
+        // Show the modal
+        $('#editResourceModal').modal('show');
+    } catch (error) {
+        console.error("Error parsing the note:", error);
+    }
+}
+&nbsp;
+// Function to populate the modal with note data
+function populateEditModal(note) {
     document.getElementById("editTitle").value = note.title;
     document.getElementById("editDescription").value = note.description;
     document.getElementById("editPriority").value = note.priority;
-&nbsp;
-    // Set the update button's onclick event to update this specific note
-    document.getElementById("updateButton").onclick = function () {
-        updateNote(note.id);
-    };
-&nbsp;
-    // Show the modal
-    $('#editResourceModal').modal('show');
 }
-&nbsp;
-&nbsp;
 &nbsp;
 // Function to update the note
 function updateNote(noteId) {
     // Get updated values from the form
-    const updatedTitle = document.getElementById("editTitle").value;
-    const updatedDescription = document.getElementById("editDescription").value;
-    const updatedPriority = document.getElementById("editPriority").value;
-&nbsp;
-    const updatedNote = {
-        title: updatedTitle,
-        description: updatedDescription,
-        priority: updatedPriority,
-    };
+    const updatedNote = getUpdatedNoteData();
 &nbsp;
     // Send a PUT request to update the note
+    sendUpdateRequest(noteId, updatedNote);
+}
+&nbsp;
+// Function to get updated note data from the form
+function getUpdatedNoteData() {
+    return {
+        title: document.getElementById("editTitle").value,
+        description: document.getElementById("editDescription").value,
+        priority: document.getElementById("editPriority").value,
+    };
+}
+&nbsp;
+// Function to send the PUT request to update the note
+function sendUpdateRequest(noteId, updatedNote) {
     const request = new XMLHttpRequest();
-    request.open('PUT', '/edit-notes/' + noteId, true); // Updated the URL to include the noteId
+    request.open('PUT', `/edit-notes/${noteId}`, true);
     request.setRequestHeader('Content-Type', 'application/json');
-    
-    request.onload = function () {
-        // Handle success based on different status codes
-        if (request.status === 200 || request.status === 201) {  // Accept 200 and 201 as success
-            // Refresh notes list and close modal
+&nbsp;
+    request.onl<span class="missing-if-branch" title="else path not taken" >E</span>oad = function () {
+        if (request.status === 200 || request.status === 201) {
+<span class="cstat-no" title="statement not covered" >            // Refresh notes list and close modal</span>
             viewNotes();
             $('#editResourceModal').modal('hide');
-            console.log("Successfully Updated the Note !");  // Use console.log for success
-            alert("Note has been Updated!")
-        } else <span class="missing-if-branch" title="else path not taken" >E</span>{
-            // Log the error message or status code
-<span class="cstat-no" title="statement not covered" >            console.error("Failed to update note. Status:", request.status, "Response:", request.responseText);</span>
+            console.log("Successfully Updated the Note !");
+            alert("Note has been Updated!");
+        } else {<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >            console.error("Failed to update note. Status:", request.status</span>, "Response:", request.responseText);
         }
     };
-    
-    // Handle network or other errors that might occur
-    request.onerror = <span class="fstat-no" title="function not covered" >fu</span>nction() {
-<span class="cstat-no" title="statement not covered" >        console.error("Network error occurred while updating the note.");</span>
+&nbsp;
+    request.onerror = function() {
+        console.error("Network error occurred while updating the note.");
     };
 &nbsp;
-    // Send the request
     request.send(JSON.stringify(updatedNote));
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -259,7 +271,7 @@ function updateNote(noteId) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-06T07:46:05.625Z
+                at 2025-02-06T09:19:42.059Z
             </div>
         <script src="prettify.js"></script>
         <script>
