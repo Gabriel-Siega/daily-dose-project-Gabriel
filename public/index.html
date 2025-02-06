@@ -16,15 +16,12 @@
     <script src="js/deleteNotes.js"></script>
     <script src="js/editNotes.js"></script>
     <script src="js/viewNotes.js"></script>
-    <!-- <script src="js/replace"></script> -->
-    <!-- <script src="js/replace"></script> -->
 </head>
 
 <body onload="viewNotes()">
     <!-- Navbar with Logo -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container d-flex justify-content-center">
-            <!-- Logo -->
             <div class="navbar-brand">
                 <img src="images/logo.png" alt="Daily Dose Logo" width="200" height="80" class="d-inline-block align-top">
             </div>
@@ -33,7 +30,6 @@
 
     <!-- Main Container with Button -->
     <div class="container mt-5">
-        <!-- Filter Dropdown -->
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <select id="priorityFilter" class="form-control" onchange="filterNotes()">
@@ -46,24 +42,30 @@
             </div>
         </div>
         <div class="row">
-            <!-- Button Column -->
+            <!-- Button to trigger modal -->
             <div class="col-md-2 d-flex align-items-start">
                 <button type="button" class="btn btn-secondary big-button mt-4" data-toggle="modal" data-target="#notesModal">
                     <span class="material-icons big-icon">add</span>
                 </button>
             </div>
-            
+
+            <!-- Button to trigger edit modal -->
+            <div class="col-md-2 d-flex align-items-start">
+                <button type="button" class="btn btn-secondary big-button mt-4" data-toggle="modal" data-target="#editResourceModal">
+                    <span class="material-icons big-icon">edit</span>
+                </button>
+            </div>
+
             <!-- Table Content Column -->
             <div class="col-md-10">
-                <span class="row justify-content-start"  id="tableContent">
+                <span class="row justify-content-start" id="tableContent">
                     <!-- Note Cards will be inserted here by JavaScript -->
                 </span>
             </div>
         </div>
     </div>
 
-
-    <!-- Modal -->
+    <!-- Notes Modal -->
     <div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -90,9 +92,8 @@
                                 <option value="high-priority">High Priority</option>
                                 <option value="medium-priority">Medium Priority</option>
                                 <option value="low-priority">Low Priority</option>
-                              </select>
+                            </select>
                         </div>
-                        <p align="right" id="message" class=""></p>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -102,46 +103,46 @@
             </div>
         </div>
     </div>
-   <!-- Edit Modal -->
-   <div class="modal fade" id="editResourceModal" tabindex="-1" role="dialog" aria-labelledby="editResourceModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editResourceModalLabel">Edit Note</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="editTitle">Title</label>
-                        <input type="text" class="form-control" id="editTitle" placeholder="Enter title">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDescription">Description</label>
-                        <textarea type="text" class="form-control" id="editDescription" placeholder="Edit description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="editPriority">Edit Priority</label>
-                        <select class="form-control" id= "editPriority" name ="editPriority">
-                            <option value="extreme-priority">Extreme Priority</option>
-                            <option value="high-priority">High Priority</option>
-                            <option value="medium-priority">Medium Priority</option>
-                            <option value="low-priority">Low Priority</option>
-                          </select>
-                    </div>
-                    <p align="right" id="editMessage" class=""></p>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="updateButton">Update Note</button>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editResourceModal" tabindex="-1" role="dialog" aria-labelledby="editResourceModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editResourceModalLabel">Edit Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="editTitle">Title</label>
+                            <input type="text" class="form-control" id="editTitle" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDescription">Description</label>
+                            <textarea class="form-control" id="editDescription" placeholder="Edit description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPriority">Priority</label>
+                            <select class="form-control" id="editPriority" name="editPriority">
+                                <option value="extreme-priority">Extreme Priority</option>
+                                <option value="high-priority">High Priority</option>
+                                <option value="medium-priority">Medium Priority</option>
+                                <option value="low-priority">Low Priority</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateButton">Update Note</button>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-
 
 </body>
+
 </html>

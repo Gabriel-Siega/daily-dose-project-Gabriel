@@ -14,7 +14,12 @@ describe('Daily Dose Frontend', () => {
 
   it('should edit an existing resource', () => {
     // Click the edit button for the resource
-    cy.get('button.btn-warning').filter(':contains("editNote")').last().click();
+    // cy.get('button[data-target="#resourceModal"]').click();
+    // cy.get('button.btn-warning').filter(':contains("editNote")').click();
+
+    cy.get('button[data-target="#editResourceModal"]').click();
+    cy.get('#editResourceModal').should('be.visible');
+    
   
     // Update resource details
     cy.get('#editName').clear().type('Updated Title', { force: true });
