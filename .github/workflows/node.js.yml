@@ -3,7 +3,7 @@ name: Automatic Testing for Resource Management Web App
 on:
   push:
     branches:
-      - main  # Workflow triggers on pushes to the main branch
+      - main  # Trigger on push to main branch
 
 jobs:
   test:
@@ -11,26 +11,21 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Ensures the latest code is fetched
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Change to your Node.js version if different
+          node-version: 18  # Match your local Node.js version
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests in "tests" folder
+      - name: Run backend tests
         run: npm run backend-test
 
       - name: Instrument the frontend code
-        run: |
-          mkdir -p instrumented
-          cp -R public instrumented
-          npx nyc instrument public instrumented
+        run: npm run frontend-instrument
 
-      - name: Run the frontend test cases
-        run: |
-          rm -rf .nyc_output
-          npx nyc --nycrc-path .nycrc-frontend cypress run
+      - name: Run frontend test cases
+        run: npm run frontend-test
