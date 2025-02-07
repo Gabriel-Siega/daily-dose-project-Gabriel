@@ -1,16 +1,36 @@
 name: Automatic Testing for Resource Management Web App
+
 on:
-push:
-branches:
-- main # Workflow will be triggered whenever there is a push in main branch
+  push:
+    branches:
+      - main  # Workflow triggers on pushes to the main branch
+
 jobs:
-test:
-runs-on: ubuntu-latest
-steps:
-...
-- name: Run tests in "tests" folder
-run: npm run backend-test
-- name: Instrument the frontend code
-run: cp -R public instrumented & npx nyc instrument public instrumented
-- name: Run the frontend test cases
-run: rm -rf .nyc_output & npx nyc --nycrc-path .nycrc-frontend cypress run
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Ensures the latest code is fetched
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Change to your Node.js version if different
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests in "tests" folder
+        run: npm run backend-test
+
+      - name: Instrument the frontend code
+        run: |
+          mkdir -p instrumented
+          cp -R public instrumented
+          npx nyc instrument public instrumented
+
+      - name: Run the frontend test cases
+        run: |
+          rm -rf .nyc_output
+          npx nyc --nycrc-path .nycrc-frontend cypress run
