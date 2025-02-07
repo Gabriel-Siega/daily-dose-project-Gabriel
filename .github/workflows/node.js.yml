@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run backend tests
+      - name: Run tests in "tests" folder
         run: npm run backend-test
 
       - name: Instrument the frontend code
-        run: npm run frontend-instrument
-
-      - name: Run frontend test cases
-        run: npm run frontend-test
+        run: cp -R public instrumented & npx nyc instrument public instrumented
+        
+      - name: Run the frontend test cases
+        run: rm -rf .nyc_output & npx nyc --nycrc-path .nycrc-frontend cypress run
