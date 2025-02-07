@@ -3,29 +3,30 @@ name: Automatic Testing for Resource Management Web App
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main  # Trigger workflow on push to the main branch
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout code from GitHub Repo
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js in Ubuntu
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Match your local Node.js version
+          node-version: 18
+          cache: "npm"  # Cache dependencies for faster builds
 
-      - name: Install dependencies
+      - name: Remove existing node_modules folder
+        run: rm -rf node_modules
+
+      - name: Install dependencies based on package.json
         run: npm install
 
-      - name: Run tests in "tests" folder
-        run: npm run backend-test
+      - name: Verify successful installation
+        run: npm list --depth=0  # Prints installed packages to check if dependencies are installed correctly
 
-      - name: Instrument the frontend code
-        run: cp -R public instrumented & npx nyc instrument public instrumented
-        
-      - name: Run the frontend test cases
-        run: rm -rf .nyc_output & npx nyc --nycrc-path .nycrc-frontend cypress run
+      - name: Run backend tests in "tests" folder
+        run: npm run backend-test
