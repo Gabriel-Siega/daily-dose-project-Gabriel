@@ -1,9 +1,10 @@
+version: '3.8'  # or whatever version you're using
 services:
-build-rms:
-build:
-context: .
-dockerfile: Dockerfile
-image: gabrielsiega/rms-docker-img:latest
-container_name: rms-docker-container
-ports:
-  - "8000:5050"
+  build-rms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gabrielsiega/rms-docker-img:latest
+    container_name: rms-docker-container
+    ports:
+      - "8000:5050"
