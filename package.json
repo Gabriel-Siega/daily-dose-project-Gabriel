@@ -13,23 +13,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cypress/code-coverage": "^3.13.11",
+    "@cypress/code-coverage": "^3.13.8",
     "body-parser": "^1.20.3",
-    "chai": "^5.2.0",
-    "chai-http": "^5.1.1",
-    "cypress": "^14.0.3",
-    "express": "^4.21.2",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "cypress": "^13.16.0",
+    "express": "^4.21.1",
     "fs": "^0.0.1-security",
-    "mocha": "^11.1.0",
+    "mocha": "^11.0.1",
     "nyc": "^17.1.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-transform-stub": "^2.0.0",
     "sinon": "^19.0.2",
-    "supertest": "^7.0.0"
-  },
-  "directories": {
-    "test": "test"
+    "supertest": "^6.0.0"
   }
+
 }
