@@ -11,4 +11,4 @@ new winston.transports.File({ filename: 'error.log', level: 'error' }),
 new winston.transports.File({ filename: 'combined.log' }),
 ],
 });
-module.exports = logger;    //http://localhost:5050/status
+module.exports = logger;    

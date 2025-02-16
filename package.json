@@ -7,7 +7,6 @@
     "test": "mocha test/**/*.test.js"
   },
   "dependencies": {
-    "debug": "^4.4.0",
     "express": "^4.21.2",
     "express-status-monitor": "^1.2.3",
     "winston": "^3.17.0"
