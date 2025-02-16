@@ -24,6 +24,8 @@
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
     "mocha": "^11.0.1",
+    "node.js": "^0.0.1-security",
+    "nvm": "^0.0.4",
     "nyc": "^17.1.0"
   },
   "devDependencies": {
