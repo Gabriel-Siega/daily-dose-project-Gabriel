@@ -7,7 +7,7 @@
     "test": "jest",
     "backend-test": "nyc --nycrc-path .nycrc-backend mocha",
     "frontend-instrument": "xcopy public instrumented /I /E /Y & nyc instrument public instrumented",
-    "frontend-test": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run"
+    "frontend-test": "rmdir /s /q .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +18,7 @@
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "cypress": "^13.16.0",
+    "elastic-apm-node": "^4.11.0",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
     "mocha": "^11.0.1",
