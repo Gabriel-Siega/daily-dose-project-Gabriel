@@ -9,3 +9,39 @@ services:
     container_name: rms-docker-container
     ports:
       - "8000:5050"
+
+  node-app:
+    image: node:latest
+    container_name: my-daily-dose-app
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -c "npm install && pm2 start index.js --name my-app && pm2 install pm2-metrics && pm2 set pm2-metrics:server_port 9209"
+    ports:
+      - "9209:9209"  # Expose PM2 metrics for Prometheus
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mount Prometheus config
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  grafana_data:
